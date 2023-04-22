@@ -1,5 +1,42 @@
 <template>
-  <h2>hello world</h2>
+  <main class="app">
+    <h1>The Quiz</h1>
+
+    <section class="quiz">
+      <div class="quiz-info">
+        <span class="question">{{ getCurrentQuestion.question }}</span>
+        <span class="score"> Score {{ score }}/{{ questions.length }}</span>
+      </div>
+
+      <div class="options">
+        <label
+          v-for="(option, index) in getCurrentQuestion.options"
+          :key="index"
+          :class="` option ${
+            getCurrentQuestion.selected == index
+              ? index == getCurrentQuestion.answer
+                ? 'correct'
+                : 'wrong'
+              : ''
+          } ${
+            getCurrentQuestion.selected != null &&
+            index != getCurrentQuestion.selected
+              ? 'disabled'
+              : ''
+          }`"
+        >
+          <input
+            type="radio"
+            :name="getCurrentQuestion.index"
+            :value="idex"
+            v-model="getCurrentQuestion.selected"
+            :disabled="getCurrentQuestion.selected"
+            @change="setAnswer"
+          />
+        </label>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script setup>
